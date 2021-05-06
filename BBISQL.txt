@@ -1,0 +1,63 @@
+
+GDB online is an online compiler
+
+VISITS TABLE :
+
+Create TABLE visits (user_id number
+visit_date date
+);
+-- insert some values
+INSERT INTO visits VALUES (1,'2020-01-01');
+INSERT INTO visits VALUES (2,'2020-01-02');
+INSERT INTO visits VALUES (12,'2020-01-01');
+INSERT INTO visits VALUES (19,'2020-01-03');
+INSERT INTO visits VALUES (1,'2020-01-02');
+INSERT INTO visits VALUES (2,'2020-01-03');
+INSERT INTO visits VALUES (1,'2020-01-04');
+INSERT INTO visits VALUES (7,'2020-01-01');
+INSERT INTO visits VALUES (9,'2020-01-25');
+INSERT INTO visits VALUES (8,'2020-01-28');
+
+-------FIRST Query----
+select * from visits 
+where user_id =
+(select MAX(user_id) from visits);
+
+
+
+TRANSACTION TABLE :  
+
+create table Transactions(user_id number,transaction_date date,amount number);
+
+
+insert into Transactions values(1,'2020-01-02',120);
+insert into Transactions values(2,'2020-01-03',22);
+insert into Transactions values(7,'2020-01-11',232);
+insert into Transactions values(1,'2020-01-04',7);
+insert into Transactions values(9,'2020-01-25',33);
+insert into Transactions values(9,'2020-01-25',66);
+insert into Transactions values(8,'2020-01-28',1);
+insert into Transactions values(9,'2020-01-25',99);
+
+/*select * from Transactions;*/
+---------From 2nd to 5th----------------------
+2. select max(amount),max(transaction_date) from Transactions;
+3. select user_id,max(num) from (select user_id,count(user_id) as num from Transactions group by user_id);
+4. select avg(amount) from Transactions where transaction_date>='2020-01-02' or transaction_date<='2020-01-28';
+
+5. select user_id as count_no_trans
+from Visits
+where user_id not in 
+    (select user_id
+    from Transactions
+    group by user_id)
+
+
+
+
+
+
+
+
+
+
